@@ -42,7 +42,7 @@ To get started with Lyricfy, follow these steps:
 
 4. **Run the application**:
    ```bash
-   npm start
+   npm run dev
    ```
 
 5. Open your browser and navigate to `http://localhost:5173` to view the application.
@@ -63,5 +63,3 @@ Contributions are welcome! If you have suggestions for improvements or new featu
 - Special thanks to [Lucide](https://lucide.dev/) for the icons used in the application.
 
 ---
-
-Feel free to customize this README to better fit your project's specifics, such as adding screenshots, more detailed usage instructions, or any other relevant information.

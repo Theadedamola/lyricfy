@@ -39,7 +39,7 @@ const Footer = () => {
       </div>
 
       {/* Copyright Section */}
-      <div className="text-lg">
+      <div className="text-lg text-center">
         &copy; {new Date().getFullYear()} Designed and developed by{' '}
         <Link
           to="https://adedamola-pf.netlify.app"

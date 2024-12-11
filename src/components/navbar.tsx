@@ -1,6 +1,7 @@
-import { Music, PenToolIcon } from 'lucide-react'
+import { PenToolIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Button } from './ui/Button'
+import logo from '../assets/logo.svg'
 
 const Navbar = () => {
   return (
@@ -9,7 +10,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex">
             <Link to="/" className="flex items-center gap-2">
-              <Music className="w-6 h-6" />
+              <img src={logo} alt="lyricfy logo" className="w-6 h-6" />
               <span className="font-bold text-xl">Lyricfy</span>
             </Link>
           </div>

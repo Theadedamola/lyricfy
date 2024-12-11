@@ -100,7 +100,7 @@ export const LyricDisplay: React.FC<LyricDisplayProps> = ({
               <p className="text-lg text-white/60">{artist}</p>
             </div>
           </div>
-          <p className="text-5xl w-full font-bold text-wrap leading-snug text-white whitespace-pre-line">
+          <p className="text-2xl md:text-3xl lg:text-5xl w-full font-bold text-wrap leading-snug text-white whitespace-pre-line">
             {lyrics}
           </p>
         </div>

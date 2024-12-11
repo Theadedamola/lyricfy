@@ -1,6 +1,7 @@
 import { Outlet, Link } from 'react-router-dom'
-import { Music, PenToolIcon, Users } from 'lucide-react'
+import { PenToolIcon, Users } from 'lucide-react'
 import Footer from './Footer'
+import logo from '../assets/logo.svg'
 
 export const Layout = () => {
   return (
@@ -10,7 +11,7 @@ export const Layout = () => {
           <div className="flex justify-between h-16">
             <div className="flex">
               <Link to="/" className="flex items-center gap-2">
-                <Music className="w-6 h-6" />
+                <img src={logo} alt="lyricfy logo" className="w-6 h-6" />
                 <span className="font-bold text-xl">Lyricfy</span>
               </Link>
             </div>
