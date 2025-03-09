@@ -12,7 +12,7 @@ export default {
         cehua: ['Cehua', 'serif'],
       },
       backgroundImage: {
-        'hero-pattern': "url('/src/assets/bg-pattern.png')",
+        'hero-pattern': "url('/src/assets/noiseEffect-bg.png')",
       },
     },
   },

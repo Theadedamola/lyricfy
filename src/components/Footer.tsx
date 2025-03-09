@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom'
 import { Music } from 'lucide-react' // Assuming you're using lucide-react for icons
 
-const Footer = () => {
+interface FooterProps {
+  className?: string
+}
+
+const Footer = ({ className = '' }: FooterProps) => {
   return (
-    <footer className="py-20 flex flex-col items-center justify-center p-4 bg-white text-black">
+    <footer
+      className={`py-20 flex flex-col items-center justify-center p-4 bg-white text-black ${className}`}
+    >
       {/* Logo Section */}
       <div className="flex items-center mb-4">
         <Music className="w-6 h-6 mr-2" />

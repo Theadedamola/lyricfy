@@ -4,6 +4,7 @@ import { Home } from '../pages/Home'
 import { Community } from '../pages/Community'
 import LandingPage from '../pages/LandingPage'
 import LyricfyApp from '../pages'
+import Auth from '../pages/Auth'
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <LandingPage />,
+      },
+      {
+        path: '/auth',
+        element: <Auth />,
       },
       {
         path: '/dashboard',

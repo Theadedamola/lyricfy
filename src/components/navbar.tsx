@@ -15,7 +15,7 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="flex items-center">
-            <Link to="/dashboard" className="">
+            <Link to="/auth" className="">
               <Button className="gap-2">
                 <PenToolIcon className="w-4 h-4" />
                 <span className="text-sm">Create</span>

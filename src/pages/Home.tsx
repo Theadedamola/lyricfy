@@ -175,6 +175,22 @@ export const Home: React.FC = () => {
                 focus:ring-1 focus:ring-[#090909] outline-none transition-all duration-200"
             />
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="flex flex-col gap-4"
+        >
+          <div id="lyric-display">
+            <LyricDisplay
+              title={title || 'Your Song Title'}
+              artist={artist || 'Artist Name'}
+              lyrics={lyrics || 'Your lyrics will appear here'}
+              backgroundUrl={backgroundUrl}
+              gradientType={gradientType}
+            />
+          </div>
 
           <div className="space-y-4">
             <label className="text-sm font-medium text-gray-700">
@@ -201,22 +217,6 @@ export const Home: React.FC = () => {
             <GradientSelector
               selected={gradientType}
               onSelect={setGradientType}
-            />
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="flex flex-col gap-4"
-        >
-          <div id="lyric-display">
-            <LyricDisplay
-              title={title || 'Your Song Title'}
-              artist={artist || 'Artist Name'}
-              lyrics={lyrics || 'Your lyrics will appear here'}
-              backgroundUrl={backgroundUrl}
-              gradientType={gradientType}
             />
           </div>
 
