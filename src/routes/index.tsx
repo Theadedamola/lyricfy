@@ -5,6 +5,7 @@ import { Community } from '../pages/Community'
 import LandingPage from '../pages/LandingPage'
 import LyricfyApp from '../pages'
 import Auth from '../pages/Auth'
+import CodeBeautify from '../pages/CodeBeautify'
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <Home />,
+          },
+          {
+            path: 'code-beautify',
+            element: <CodeBeautify />,
           },
           {
             path: 'community',

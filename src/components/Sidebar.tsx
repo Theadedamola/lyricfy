@@ -1,12 +1,20 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { PenToolIcon, Users, Menu, X, LogOut, SidebarIcon } from 'lucide-react'
+import {
+  PenToolIcon,
+  Users,
+  Menu,
+  X,
+  LogOut,
+  SidebarIcon,
+  Code,
+} from 'lucide-react'
 import { useAuth } from '../lib/AuthContext'
 import logo from '../assets/logo.svg'
 
 // Add this to your imports and props
 interface SidebarProps {
-  onToggle?: (isOpen: boolean) => void;
+  onToggle?: (isOpen: boolean) => void
 }
 
 const Sidebar = ({ onToggle }: SidebarProps = {}) => {
@@ -18,13 +26,13 @@ const Sidebar = ({ onToggle }: SidebarProps = {}) => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen)
   }
-  
+
   const toggleDesktopSidebar = () => {
-    const newState = !isDesktopOpen;
-    setIsDesktopOpen(newState);
+    const newState = !isDesktopOpen
+    setIsDesktopOpen(newState)
     // Notify parent component about the state change
     if (onToggle) {
-      onToggle(newState);
+      onToggle(newState)
     }
   }
 
@@ -37,6 +45,11 @@ const Sidebar = ({ onToggle }: SidebarProps = {}) => {
       name: 'Create',
       path: '/dashboard',
       icon: <PenToolIcon className="w-5 h-5" />,
+    },
+    {
+      name: 'Code Beautify',
+      path: '/dashboard/code-beautify',
+      icon: <Code className="w-5 h-5" />,
     },
     {
       name: 'Community',
@@ -65,18 +78,14 @@ const Sidebar = ({ onToggle }: SidebarProps = {}) => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 m-8 rounded-3xl h-[90vh] bg-white border border-[#f0f0f0] z-40 transition-all duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 m-8 rounded-3xl h-[90vh] bg-white border border-[#f0f0f0] z-40 transition-all duration-300 ease-in-out shadow-[0px_6px_40px_rgba(0,0,0,0.06)] ${
           isOpen ? 'w-64' : 'w-0 md:w-auto'
         } ${isDesktopOpen ? 'md:w-64' : 'md:w-24'} overflow-hidden`}
       >
         <div className="flex flex-col h-full">
           {/* Logo and brand */}
           <div className="flex items-center gap-2 p-6">
-            <img
-              src={logo}
-              alt="lyricfy logo"
-              className="w-8 h-8"
-            />
+            <img src={logo} alt="lyricfy logo" className="w-8 h-8" />
             <span
               className={`font-bold text-xl ${
                 isDesktopOpen ? 'block' : 'hidden'
@@ -164,10 +173,11 @@ const Sidebar = ({ onToggle }: SidebarProps = {}) => {
               onClick={handleLogout}
               className="flex items-center gap-3 px-4 py-3 w-full text-left rounded-lg hover:bg-gray-100 text-gray-700 transition-colors"
             >
-              <LogOut className={`${isDesktopOpen ? '' : 'mx-auto'}`} size={24}/>
-              <span className={isDesktopOpen ? 'block' : 'hidden'}>
-                Logout
-              </span>
+              <LogOut
+                className={`${isDesktopOpen ? '' : 'mx-auto'}`}
+                size={24}
+              />
+              <span className={isDesktopOpen ? 'block' : 'hidden'}>Logout</span>
             </button>
           </div>
         </div>
