@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import type { GradientType } from '../types'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
+
+// Character limit for the code editor
+const MAX_CHARS = 500
 
 interface CodeDisplayProps {
   code: string
+  setCode: (code: string) => void
   language: string
   backgroundUrl?: string
   gradientType?: GradientType
@@ -11,6 +17,7 @@ interface CodeDisplayProps {
 
 export const CodeDisplay: React.FC<CodeDisplayProps> = ({
   code,
+  setCode,
   language,
   backgroundUrl,
   gradientType,
@@ -77,10 +84,10 @@ export const CodeDisplay: React.FC<CodeDisplayProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       style={getBackgroundStyle()}
-      className="relative w-full max-w-3xl aspect-[1/1] py-10 px-14 overflow-hidden rounded-3xl shadow-2xl flex items-center justify-center m-4"
+      className="relative w-full max-w-3xl aspect-[1/1] py-10 px-14 overflow-hidden flex items-center justify-center"
     >
       {/* Code editor window with its own background */}
-      <div className="relative z-10 h-[90%] w-[90%] flex flex-col rounded-2xl overflow-hidden shadow-xl">
+      <div className="relative z-10 h-fit w-[90%] flex flex-col rounded-2xl overflow-hidden shadow-xl">
         {/* Editor title bar */}
         <div className="bg-[#1e1e1e] px-4 py-2 flex items-center">
           {/* Window controls */}
@@ -91,7 +98,7 @@ export const CodeDisplay: React.FC<CodeDisplayProps> = ({
           </div>
 
           {/* File name tab */}
-          <div className="ml-4 px-3 py-1 bg-[#2d2d2d] rounded-t-md text-white text-xs">
+          <div className="ml-4 px-3 py-1 bg-[#2d2d2d] rounded-md text-white text-xs">
             {language.toLowerCase()}.
             {language === 'javascript'
               ? 'js'
@@ -107,10 +114,10 @@ export const CodeDisplay: React.FC<CodeDisplayProps> = ({
           </div>
         </div>
 
-        {/* Editor content area */}
-        <div className="flex-1 bg-[#1e1e1e] p-4">
+        {/* Editor content area - Now with editable textarea */}
+        <div className="flex-1 bg-[#1e1e1e] p-4 flex flex-col">
           {/* Line numbers and code */}
-          <div className="font-mono text-sm md:text-base flex">
+          <div className="font-mono text-sm md:text-base flex flex-1">
             {/* Line numbers */}
             <div className="text-gray-500 pr-4 select-none text-right">
               {code.split('\n').map((_, i) => (
@@ -119,14 +126,54 @@ export const CodeDisplay: React.FC<CodeDisplayProps> = ({
               {!code && <div>1</div>}
             </div>
 
-            {/* Code content */}
-            <pre className="flex-1 text-white whitespace-pre-wrap">
-              <code>{code || '// put your code here'}</code>
-            </pre>
+            {/* Code content - Now with syntax highlighting */}
+            <div className="flex-1 relative">
+              {/* Hidden textarea for editing */}
+              <textarea
+                value={code}
+                onChange={(e) => {
+                  const newCode = e.target.value
+                  if (newCode.length <= MAX_CHARS) {
+                    setCode(newCode)
+                  }
+                }}
+                placeholder="// put your code here (max 500 characters)"
+                className="absolute inset-0 bg-transparent border-none outline-none resize-none
+                  font-mono text-white w-full h-full text-sm md:text-base whitespace-pre-wrap
+                  opacity-30 z-10"
+                maxLength={MAX_CHARS}
+              />
+
+              {/* Syntax highlighted code display */}
+              <div className="absolute inset-0 overflow-auto pointer-events-none">
+                <SyntaxHighlighter
+                  language={language.toLowerCase()}
+                  style={vscDarkPlus}
+                  customStyle={{
+                    margin: 0,
+                    padding: 0,
+                    background: 'transparent',
+                    fontSize: 'inherit',
+                    fontFamily: 'inherit',
+                    minHeight: '100%',
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: 'inherit',
+                    },
+                  }}
+                >
+                  {code || '// put your code here (max 500 characters)'}
+                </SyntaxHighlighter>
+              </div>
+            </div>
+          </div>
+
+          {/* Character counter */}
+          <div className="text-xs text-gray-500 text-right mt-2">
+            {code.length}/{MAX_CHARS} characters
           </div>
         </div>
-
-        
       </div>
     </motion.div>
   )

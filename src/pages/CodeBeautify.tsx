@@ -1,12 +1,10 @@
 import React, { useState, useRef } from 'react'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import { toPng } from 'html-to-image'
 import type { GradientType } from '../types'
 import { CodeDisplay } from '../components/CodeDisplay'
 import { CodeToolbar } from '../components/CodeToolbar'
-import { CodeInput } from '../components/CodeInput'
 import { GradientModal } from '../components/GradientModal'
-
 
 export const CodeBeautify: React.FC = () => {
   const [code, setCode] = useState('')
@@ -100,20 +98,49 @@ export const CodeBeautify: React.FC = () => {
   const handleDownload = async () => {
     const element = document.getElementById('code-display')
     if (element) {
-      const dataUrl = await toPng(element)
-      const link = document.createElement('a')
-      link.download = `${language || 'code'}-snippet.png`
-      link.href = dataUrl
-      link.click()
+      // Apply temporary styles to ensure proper centering and sizing for download
+      const originalStyle = element.getAttribute('style') || ''
+
+      // Get the CodeDisplay element (the child with the gradient background)
+      const codeDisplayElement = element.querySelector('div[style]')
+      if (codeDisplayElement) {
+        // Store original styles
+        const originalCodeDisplayStyle =
+          codeDisplayElement.getAttribute('style') || ''
+
+        // Modify the container to take full width
+        element.style.width = '80%'
+        element.style.maxWidth = 'none'
+        element.style.padding = '0'
+        element.style.margin = '0'
+        element.style.display = 'flex'
+        element.style.justifyContent = 'center'
+        element.style.alignItems = 'center'
+        element.style.borderRadius = '24px'
+
+        // Generate the image
+        const dataUrl = await toPng(element, {
+          quality: 0.95,
+          pixelRatio: 2,
+        })
+
+        // Restore original styles
+        element.setAttribute('style', originalStyle)
+        codeDisplayElement.setAttribute('style', originalCodeDisplayStyle)
+
+        // Download the image
+        const link = document.createElement('a')
+        link.download = `${language || 'code'}-snippet.png`
+        link.href = dataUrl
+        link.click()
+      }
     }
   }
-  
   const handleGradientSelect = (type: GradientType) => {
     setGradientType(type)
     setBackgroundUrl(undefined)
     setShowGradientModal(false)
   }
-
   return (
     <div className="flex flex-col h-[calc(100vh-120px)]">
       {/* Top toolbar */}
@@ -126,35 +153,28 @@ export const CodeBeautify: React.FC = () => {
         handleImageUpload={handleImageUpload}
         handleDownload={handleDownload}
       />
-      
+
       {/* Gradient modal */}
       <GradientModal
         show={showGradientModal}
         gradientType={gradientType}
         onSelect={handleGradientSelect}
       />
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 flex-1 items-center justify-center">
-        {/* Code input */}
-        <div className="h-full pt-72 flex items-end">
-          <CodeInput code={code} setCode={setCode} />
-        </div>
-      
-        {/* Code display */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="flex flex-col items-center justify-center"
+
+      <div className="rounded-3xl flex-1 flex items-center justify-center">
+        {/* Centered code editor */}
+        <div
+          id="code-display"
+          className="w-full flex justify-center items-center"
         >
-          <div id="code-display" className="flex-1">
-            <CodeDisplay
-              code={code || '// Your code will appear here'}
-              language={language}
-              backgroundUrl={backgroundUrl}
-              gradientType={gradientType}
-            />
-          </div>
-        </motion.div>
+          <CodeDisplay
+            code={code}
+            setCode={setCode}
+            language={language}
+            backgroundUrl={backgroundUrl}
+            gradientType={gradientType}
+          />
+        </div>
       </div>
     </div>
   )

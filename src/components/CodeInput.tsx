@@ -24,12 +24,12 @@ export const CodeInput: React.FC<CodeInputProps> = ({ code, setCode }) => {
       className="flex flex-col justify-end w-full h-64 ml-auto" // Reduced width and positioned at the end
     >
       <div className="flex flex-col gap-2 flex-1">
-        <div className="border border-gray-300 rounded-2xl overflow-hidden flex-1 shadow-[0px_6px_40px_rgba(0,0,0,0.12)]">
+        <div className="rounded-2xl overflow-hidden flex-1 border border-gray-100 bg-gray-50/70 shadow-[0px_6px_40px_rgba(0,0,0,0.04)]">
           <textarea
             value={code}
             onChange={handleCodeChange}
             placeholder="Paste your code here (max 500 characters)"
-            className="px-4 py-2 h-full w-full font-mono text-sm bg-gray-50 focus:bg-white
+            className="px-4 py-2 h-full w-full font-mono text-sm bg-transparent
               focus:border-[#090909] focus:ring-1 focus:ring-[#090909] outline-none transition-all duration-200"
             maxLength={MAX_CHARS}
           />
