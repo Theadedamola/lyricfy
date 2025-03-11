@@ -109,7 +109,7 @@ export const CodeBeautify: React.FC = () => {
           codeDisplayElement.getAttribute('style') || ''
 
         // Modify the container to take full width
-        element.style.width = '80%'
+        element.style.width = '70%'
         element.style.maxWidth = 'none'
         element.style.padding = '0'
         element.style.margin = '0'
